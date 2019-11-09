@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- development version, includes helpful console warnings
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+
+    <!-- production version, optimized for size and speed -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <title>Vue lesson 1</title>
+</head>
+
+<body>
+    <div id="mainTitle">
+        <h1>{{Title}}</h1>
+        <input v-model="Title" size="50">
+    </div>
+    <script>
+        var inputTitle = new Vue({
+            el: "#mainTitle",
+            data: { Title: 'You can change this title!' }
+        })
+    </script>
+    <div id="Hello" v-bind:title="dateLoaded">
+        <p>{{message}}</p>
+        <p>Hover on the above to see the use of the v-bind directive</p>
+        <span v-if="makeVisible">I was hiding until you changed the value of makeVisible</span>
+        <br>
+        <button v-on:click='makeVisible = !makeVisible'>
+            change value of makeVisible to {{!makeVisible}}
+        </button>
+    </div>
+    <script>
+        var helloWorld = new Vue({
+            el: "#Hello",
+            data: {
+                message: "Hello World! -- from Vue.js",
+                dateLoaded: 'You loaded this page on ' + new Date().toLocaleString(),
+                makeVisible: false
+            }
+        })
+    </script>
+    <hr>
+    <div id="toDoList">
+        <ol>
+            <li v-for="task in toDos">{{task.task}} is to be completed by {{task.deadline}}</li>
+        </ol>
+        <button v-on:click='reverseTodos'>Reverse the todo list</button>
+    </div>
+    <script>
+        var toDoList = new Vue({
+            el: "#toDoList",
+            data: {
+                toDos: [
+                    { task: "first task", deadline: "Tuesday" },
+                    { task: "second task", deadline: "Wednesday" }
+                ]
+            },
+            methods: {
+                reverseTodos: function () {
+                    this.toDos = this.toDos.reverse()
+                }
+            }
+        })
+    </script>
+    <hr>
+    <p>You can change the above in the console.</p>
+    <p>The data is held in three objects:</p> 
+    <ul>
+        <li>inputTitle with the property Title</li>
+        <li>helloWorld, with properties: message, dateLoaded and makeVisible</li>
+        <li>toDoList, with the property toDos which is an array of objects with properties task and deadline</li>
+    </ul>
+    
+</body>
+
+</html>
